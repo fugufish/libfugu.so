@@ -4,7 +4,7 @@
 
 url: http://libfugu.so
 title: libfugu.so
-subtitle: A random thought generator by Fugufish
+subtitle: require 'fugu'; Fugu::Thought.generate
 author: Fugufish
 simple_search: http://google.com/search
 
