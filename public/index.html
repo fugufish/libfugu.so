@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>libfugu.so</title>
+  <meta name="author" content="Fugufish">
+
+  
+  <meta name="description" content="I recently was looking for a way to easily handle API authentication with as little overhead as possible. So first a little background. At Scan we ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://libfugu.so/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="libfugu.so" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">libfugu.so</a></h1>
+  
+    <h2>A random thought generator by Fugufish</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:libfugu.so" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/">Lightweight API Authentication With Lua and NGiNX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-26T10:18:00-06:00" pubdate  data-updated="true" >Oct 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently was looking for a way to easily handle API authentication with as little overhead as possible. So first a little background. At <a href="http://scan.me">Scan</a> we are following a service oriented structure, where each service defines and maintains its own API endpoints. The &#8220;API&#8221; is in fact nothing more than a glorified proxy, that sends back the request to the appropriate service which then handles the logic. This is all handled through NGiNX. More on the pros and cons of that structure in a future post. That being said, my goals were simple:</p>
+
+<blockquote><ul>
+<li>Little to no long term code maintinence. I want to be able to forget it is even there.</li>
+<li>Fast. After all, it is authenticating every API request.</li>
+<li>I wanted it to behave almost like a Ruby on Rails <em>before_filter</em> call. It should authenticate the key before the API endpoints are actually even hit.</li>
+</ul>
+</blockquote>
+
+<p>Enter the <a href="https://github.com/chaoslawful/lua-nginx-module">lua-nginx-module</a>. Lua is an extremely light weight fast scripting language made popular by its ability to be embedded in almost anything, <a href="https://github.com/glejeune/ruby-lua">even in other scripting languages</a>. In this case, the Lua runtime can be compiled directly into NGiNX. The lua-nginx-module conveniently adds an NGiNX configuration option called <a href="http://wiki.nginx.org/HttpLuaModule#access_by_lua">access_by_lua</a> which seems to fit all of the above requirements nicely:</p>
+
+<blockquote><ul>
+<li>Little or no maintinence - the entire authentication script run by NGiNX is a total of less than 70 lines of code (with comments and logging removed), and depending on requirements could be done in less.</li>
+<li>Fast - Lua is on average <a href="http://shootout.alioth.debian.org/u32/benchmark.php?test=all&amp;lang=yarv&amp;lang2=lua">five times faster than ruby</a>, and is embedded in the actual webserver. It also runs concurrently. Each NGiNX worker gets it&#8217;s own Lua runtime.</li>
+<li>Prevents access before it hits the first endpoint - The access_by_lua acts in the same way as a simple basic authentication directive would. It will stop the call from ever continuing to the API endpoints if authentication fails.</li>
+</ul>
+</blockquote>
+
+<p>The best thing is that it is flexible. How the lua authenticates is entirely up to the developer. It can read from a file, call a back end service, or even read directly from a database. It is entirely up to you.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <nav class="pagination">
+    <div>
+      
+      <a href="/blog/archives">Blog Archives</a>
+      
+    </div>
+  </nav>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/">Lightweight API Authentication With Lua and NGiNX</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/fugufish">@fugufish</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'fugufish',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("dasfugufish", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/dasfugufish" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @dasfugufish</a>
+  
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Fugufish -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+    
+      var disqus_shortname = 'libfuguso';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6239683-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
