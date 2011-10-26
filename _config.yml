@@ -4,7 +4,7 @@
 
 url: http://libfugu.so
 title: libfugu.so
-subtitle: require 'fugu'; Fugu::Thought.generate
+subtitle: require 'fugu'; Fugu::Thought.new
 author: Fugufish
 simple_search: http://google.com/search
 
