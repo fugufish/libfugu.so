@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: NGiNX - libfugu.so</title>
+  <title>The Wrong and Right of Rewrite - libfugu.so</title>
   <meta name="author" content="Fugufish">
 
   
-  <meta name="description" content="Category: NGiNX">
+  <meta name="description" content="Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://libfugu.soblog/categories/nginx/">
+  <link rel="canonical" href="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -59,36 +59,100 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: NGiNX</h1>
+    
+      <h1 class="entry-title">The Wrong and Right of Rewrite</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-01-05T11:18:00-07:00" pubdate  data-updated="true" >Jan 5<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It&#8217;s too hard to understand. There&#8217;s no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It&#8217;s time to rewrite. Or is it?</p>
 
-  
-  <h2>2011</h2>
+<p>The rewrite is an easy trap to fall into. You have to ask yourself though, am I considering a rewrite for the right reasons. The answer lies in the ability for you to be honest with yourself. First, a rewrite is NEVER a snap decision. If it took you less than a few days to determine you need to rewrite then you are %99.99 likely to be doing it for the wrong reasons. Having recently found myself considering a rewrite, I decided to stop myself and think it through. Here is a small list of various reasons for a rewrite. Some good, some bad.</p>
 
-<article>
-  
-<h1><a href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/">Lightweight API Authentication With Lua and NGiNX</a></h1>
-<time datetime="2011-10-26T10:18:00-06:00" pubdate><span class='month'>Oct</span> <span class='day'>26</span> <span class='year'>2011</span></time>
+<h2>The Wrong Reasons (or the most commonly used excuses)</h2>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/lua/'>Lua</a>, <a class='category' href='/blog/categories/nginx/'>NGiNX</a></span>
-</footer>
+<ul>
+<li>I hate PHP. Or whatever language it is you find a particular distaste for. If this is your reason, you have probably spoiled yourself (I&#8217;m talking to most Ruby developers, including myself). Changing languages should only be a factor if you already have legitimate reasons for doing a rewrite.</li>
+<li>I don&#8217;t want to learn the code. The actual typical excuse is that it was just &#8220;done wrong&#8221;. I think this is the most common excuse for a rewrite. Face it, working with other peoples code is a part of being a Software Engineer.</li>
+<li>The person that wrote the original code sucks. This is often closely linked to the above. They suck because I cannot understand it.</li>
+<li>It&#8217;s not the way I would have done it. Well of course it isn&#8217;t. Code style is almost as unique to a Software Engineer as a fingerprint.</li>
+</ul>
 
 
-</article>
+<h2>The Right Reasons</h2>
+
+<ul>
+<li>Unusable in it&#8217;s current state. If the codebase is unusable a rewrite is justified. Keep in mind that unusable code doesn&#8217;t mean unreadable code, or code you don&#8217;t understand, or code you don&#8217;t want to debug.</li>
+<li>NOBODY can read it. Okay, if it is that unreadable then it is likely that a rewrite is justified.</li>
+<li>The codebase cannot support the current requirements of the software, either due to language limitations or the software was created in a way that prevents th requirements being met. A good albeit controversial example is Twitter&#8217;s move from Ruby to Java.</li>
+</ul>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Fugufish</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2012-01-05T11:18:00-07:00" pubdate  data-updated="true" >Jan 5<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -176,7 +240,10 @@
       var disqus_shortname = 'libfuguso';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/';
+        var disqus_url = 'http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -4,7 +4,7 @@
   <title><![CDATA[libfugu.so]]></title>
   <link href="http://libfugu.so/atom.xml" rel="self"/>
   <link href="http://libfugu.so/"/>
-  <updated>2011-10-26T12:31:38-06:00</updated>
+  <updated>2012-01-05T13:47:10-07:00</updated>
   <id>http://libfugu.so/</id>
   <author>
     <name><![CDATA[Fugufish]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Wrong and Right of Rewrite]]></title>
+    <link href="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/"/>
+    <updated>2012-01-05T11:18:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite</id>
+    <content type="html"><![CDATA[<p>Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It&#8217;s too hard to understand. There&#8217;s no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It&#8217;s time to rewrite. Or is it?</p>
+
+<p>The rewrite is an easy trap to fall into. You have to ask yourself though, am I considering a rewrite for the right reasons. The answer lies in the ability for you to be honest with yourself. First, a rewrite is NEVER a snap decision. If it took you less than a few days to determine you need to rewrite then you are %99.99 likely to be doing it for the wrong reasons. Having recently found myself considering a rewrite, I decided to stop myself and think it through. Here is a small list of various reasons for a rewrite. Some good, some bad.</p>
+
+<h2>The Wrong Reasons (or the most commonly used excuses)</h2>
+
+<ul>
+<li>I hate PHP. Or whatever language it is you find a particular distaste for. If this is your reason, you have probably spoiled yourself (I&#8217;m talking to most Ruby developers, including myself). Changing languages should only be a factor if you already have legitimate reasons for doing a rewrite.</li>
+<li>I don&#8217;t want to learn the code. The actual typical excuse is that it was just &#8220;done wrong&#8221;. I think this is the most common excuse for a rewrite. Face it, working with other peoples code is a part of being a Software Engineer.</li>
+<li>The person that wrote the original code sucks. This is often closely linked to the above. They suck because I cannot understand it.</li>
+<li>It&#8217;s not the way I would have done it. Well of course it isn&#8217;t. Code style is almost as unique to a Software Engineer as a fingerprint.</li>
+</ul>
+
+
+<h2>The Right Reasons</h2>
+
+<ul>
+<li>Unusable in it&#8217;s current state. If the codebase is unusable a rewrite is justified. Keep in mind that unusable code doesn&#8217;t mean unreadable code, or code you don&#8217;t understand, or code you don&#8217;t want to debug.</li>
+<li>NOBODY can read it. Okay, if it is that unreadable then it is likely that a rewrite is justified.</li>
+<li>The codebase cannot support the current requirements of the software, either due to language limitations or the software was created in a way that prevents th requirements being met. A good albeit controversial example is Twitter&#8217;s move from Ruby to Java.</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Lightweight API Authentication With Lua and NGiNX]]></title>
