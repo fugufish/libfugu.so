@@ -4,7 +4,7 @@
   <title><![CDATA[libfugu.so]]></title>
   <link href="http://libfugu.so/atom.xml" rel="self"/>
   <link href="http://libfugu.so/"/>
-  <updated>2012-01-10T14:39:01-07:00</updated>
+  <updated>2012-01-10T14:41:18-07:00</updated>
   <id>http://libfugu.so/</id>
   <author>
     <name><![CDATA[Fugufish]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[A Primer on C Extensions]]></title>
-    <link href="http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/"/>
+    <title type="html"><![CDATA[A Primer on Ruby C Extensions]]></title>
+    <link href="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/"/>
     <updated>2012-01-10T14:23:00-07:00</updated>
-    <id>http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions</id>
+    <id>http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions</id>
     <content type="html"><![CDATA[<p><strong>NOTE:</strong> This is a repost of an older blog post of mine from another <a href="http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/">Blog</a></p>
 
 <p>I will address one of the primary uses for a C extension in Ruby, speed. Due to it’s very nature, Ruby is slow (as compared to compiled languages like C). It gets the job done, but sometimes it takes it’s sweet time doing it. Sometimes it is necessary to speed things up a bit, and here enter C extensions. There are several methods of implementing extensions, from the generic C extension, to ruby-inline. In this particular article I will focus on the generic C extension.</p>

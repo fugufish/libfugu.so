@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Primer on C Extensions"
+title: "A Primer on Ruby C Extensions"
 date: 2012-01-10 14:23
 comments: true
 categories: ruby, c
