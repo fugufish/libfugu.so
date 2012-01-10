@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>libfugu.so</title>
+  <title>A Primer on C Extensions - libfugu.so</title>
   <meta name="author" content="Fugufish">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://libfugu.so/">
+  <link rel="canonical" href="http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -58,15 +58,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/01/10/a-primer-on-c-extensions/">A Primer on C Extensions</a></h1>
+      <h1 class="entry-title">A Primer on C Extensions</h1>
     
     
       <p class="meta">
@@ -87,7 +84,7 @@
   </header>
 
 
-  <div class="entry-content"><p><strong>NOTE:</strong> This is a repost of an older blog post of mine from another <a href="http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/">Blog</a></p>
+<div class="entry-content"><p><strong>NOTE:</strong> This is a repost of an older blog post of mine from another <a href="http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/">Blog</a></p>
 
 <p>I will address one of the primary uses for a C extension in Ruby, speed. Due to it’s very nature, Ruby is slow (as compared to compiled languages like C). It gets the job done, but sometimes it takes it’s sweet time doing it. Sometimes it is necessary to speed things up a bit, and here enter C extensions. There are several methods of implementing extensions, from the generic C extension, to ruby-inline. In this particular article I will focus on the generic C extension.</p>
 
@@ -272,22 +269,16 @@ Here is a look at these two files for my new version of problem 10:</p>
 
 <p>Pretty simple right? Now when you call ruby extconf.rb it will generate a Makefile that you can use to build the extension. And the final result? Using the C extension the code runs in just under 3 seconds. Still not really efficient, but it demonstrates the point. When Ruby’s speed is the bottle neck, using C is a viable and easy option.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/05/the-wrong-and-right-of-rewrite/">The Wrong and Right of Rewrite</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fugufish</span></span>
+
+      
 
 
 
@@ -297,102 +288,42 @@ Here is a look at these two files for my new version of problem 10:</p>
 
 
 
-<time datetime="2012-01-05T11:18:00-07:00" pubdate  data-updated="true" >Jan 5<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-01-10T14:23:00-07:00" pubdate  data-updated="true" >Jan 10<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/ruby-/'>ruby,</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
 
+    
+  </footer>
+</article>
 
-  <div class="entry-content"><p>Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It&#8217;s too hard to understand. There&#8217;s no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It&#8217;s time to rewrite. Or is it?</p>
-
-<p>The rewrite is an easy trap to fall into. You have to ask yourself though, am I considering a rewrite for the right reasons. The answer lies in the ability for you to be honest with yourself. First, a rewrite is NEVER a snap decision. If it took you less than a few days to determine you need to rewrite then you are %99.99 likely to be doing it for the wrong reasons. Having recently found myself considering a rewrite, I decided to stop myself and think it through. Here is a small list of various reasons for a rewrite. Some good, some bad.</p>
-
-<h2>The Wrong Reasons (or the most commonly used excuses)</h2>
-
-<ul>
-<li>I hate PHP. Or whatever language it is you find a particular distaste for. If this is your reason, you have probably spoiled yourself (I&#8217;m talking to most Ruby developers, including myself). Changing languages should only be a factor if you already have legitimate reasons for doing a rewrite.</li>
-<li>I don&#8217;t want to learn the code. The actual typical excuse is that it was just &#8220;done wrong&#8221;. I think this is the most common excuse for a rewrite. Face it, working with other peoples code is a part of being a Software Engineer.</li>
-<li>The person that wrote the original code sucks. This is often closely linked to the above. They suck because I cannot understand it.</li>
-<li>It&#8217;s not the way I would have done it. Well of course it isn&#8217;t. Code style is almost as unique to a Software Engineer as a fingerprint.</li>
-</ul>
-
-
-<h2>The Right Reasons</h2>
-
-<ul>
-<li>Unusable in it&#8217;s current state. If the codebase is unusable a rewrite is justified. Keep in mind that unusable code doesn&#8217;t mean unreadable code, or code you don&#8217;t understand, or code you don&#8217;t want to debug.</li>
-<li>NOBODY can read it. Okay, if it is that unreadable then it is likely that a rewrite is justified.</li>
-<li>The codebase cannot support the current requirements of the software, either due to language limitations or the software was created in a way that prevents th requirements being met. A good albeit controversial example is Twitter&#8217;s move from Ruby to Java.</li>
-</ul>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/">Lightweight API Authentication With Lua and NGiNX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-10-26T10:18:00-06:00" pubdate  data-updated="true" >Oct 26<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I recently was looking for a way to easily handle API authentication with as little overhead as possible. So first a little background. At <a href="http://scan.me">Scan</a> we are following a service oriented structure, where each service defines and maintains its own API endpoints. The &#8220;API&#8221; is in fact nothing more than a glorified proxy, that sends back the request to the appropriate service which then handles the logic. This is all handled through NGiNX. More on the pros and cons of that structure in a future post. That being said, my goals were simple:</p>
-
-<blockquote><ul>
-<li>Little to no long term code maintinence. I want to be able to forget it is even there.</li>
-<li>Fast. After all, it is authenticating every API request.</li>
-<li>I wanted it to behave almost like a Ruby on Rails <em>before_filter</em> call. It should authenticate the key before the API endpoints are actually even hit.</li>
-</ul>
-</blockquote>
-
-<p>Enter the <a href="https://github.com/chaoslawful/lua-nginx-module">lua-nginx-module</a>. Lua is an extremely light weight fast scripting language made popular by its ability to be embedded in almost anything, <a href="https://github.com/glejeune/ruby-lua">even in other scripting languages</a>. In this case, the Lua runtime can be compiled directly into NGiNX. The lua-nginx-module conveniently adds an NGiNX configuration option called <a href="http://wiki.nginx.org/HttpLuaModule#access_by_lua">access_by_lua</a> which seems to fit all of the above requirements nicely:</p>
-
-<blockquote><ul>
-<li>Little or no maintinence - the entire authentication script run by NGiNX is a total of less than 70 lines of code (with comments and logging removed), and depending on requirements could be done in less.</li>
-<li>Fast - Lua is on average <a href="http://shootout.alioth.debian.org/u32/benchmark.php?test=all&amp;lang=yarv&amp;lang2=lua">five times faster than ruby</a>, and is embedded in the actual webserver. It also runs concurrently. Each NGiNX worker gets it&#8217;s own Lua runtime.</li>
-<li>Prevents access before it hits the first endpoint - The access_by_lua acts in the same way as a simple basic authentication directive would. It will stop the call from ever continuing to the API endpoints if authentication fails.</li>
-</ul>
-</blockquote>
-
-<p>The best thing is that it is flexible. How the lua authenticates is entirely up to the developer. It can read from a file, call a back end service, or even read directly from a database. It is entirely up to you.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <nav class="pagination">
-    <div>
-      
-      <a href="/blog/archives">Blog Archives</a>
-      
-    </div>
-  </nav>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -417,7 +348,7 @@ Here is a look at these two files for my new version of problem 10:</p>
 <section>
   <h1>Github Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fugufish">@fugufish</a> on Github
@@ -447,7 +378,7 @@ Here is a look at these two files for my new version of problem 10:</p>
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -465,6 +396,7 @@ Here is a look at these two files for my new version of problem 10:</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -480,7 +412,10 @@ Here is a look at these two files for my new version of problem 10:</p>
       var disqus_shortname = 'libfuguso';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/';
+        var disqus_url = 'http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

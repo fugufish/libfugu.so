@@ -3,7 +3,7 @@ layout: post
 title: "The Wrong and Right of Rewrite"
 date: 2012-01-05 11:18
 comments: true
-categories: 
+categories: software engineering, project management
 ---
 
 Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It's too hard to understand. There's no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It's time to rewrite. Or is it? 

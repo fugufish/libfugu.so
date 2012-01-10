@@ -4,7 +4,7 @@
   <title><![CDATA[libfugu.so]]></title>
   <link href="http://libfugu.so/atom.xml" rel="self"/>
   <link href="http://libfugu.so/"/>
-  <updated>2012-01-05T13:47:44-07:00</updated>
+  <updated>2012-01-10T14:39:01-07:00</updated>
   <id>http://libfugu.so/</id>
   <author>
     <name><![CDATA[Fugufish]]></name>
@@ -12,6 +12,198 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A Primer on C Extensions]]></title>
+    <link href="http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions/"/>
+    <updated>2012-01-10T14:23:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/10/a-primer-on-c-extensions</id>
+    <content type="html"><![CDATA[<p><strong>NOTE:</strong> This is a repost of an older blog post of mine from another <a href="http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/">Blog</a></p>
+
+<p>I will address one of the primary uses for a C extension in Ruby, speed. Due to it’s very nature, Ruby is slow (as compared to compiled languages like C). It gets the job done, but sometimes it takes it’s sweet time doing it. Sometimes it is necessary to speed things up a bit, and here enter C extensions. There are several methods of implementing extensions, from the generic C extension, to ruby-inline. In this particular article I will focus on the generic C extension.</p>
+
+<p>In this example, I am going to use a fairly inefficient piece of Ruby code I created a while ago for Project Euler (Problem 10) for finding the sum of all primes under 2000000:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Integer</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kp">true</span> <span class="k">if</span> <span class="nb">self</span> <span class="o">==</span> <span class="mi">2</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">square</span> <span class="o">=</span> <span class="no">Math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span><span class="o">.</span><span class="n">round</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">square</span>
+</span><span class='line'>      <span class="n">i</span><span class="o">+=</span> <span class="mi">2</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">numbers</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">.</span><span class="n">.</span><span class="mi">2000000</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">numbers</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span><span class="o">.</span><span class="n">prime?</span> <span class="p">}</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">numbers</span><span class="o">.</span><span class="n">inject</span> <span class="p">{</span> <span class="o">|</span><span class="n">result</span><span class="p">,</span> <span class="n">element</span><span class="o">|</span> <span class="n">result</span> <span class="o">=</span> <span class="n">element</span> <span class="o">+</span> <span class="n">result</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At the time that I wrote this, I was relatively unaware of more efficient ways of resolving prime numbers (such as a euler sieve), however the code still ran under the allotted 2 minute window (52 seconds) so I went with it. Now to speed it up. To write a C extension you need, at a bare minimum two things:</p>
+
+<p>an extconf.rb file – this file is used by ruby to generate the Makefile that is used to compile the extension
+the source file for the extension (in this case primed.c)
+Here is a look at these two files for my new version of problem 10:</p>
+
+<p><em>primed.c</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &quot;ruby.h&quot;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;math.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">VALUE</span> <span class="n">Primed</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">VALUE</span> <span class="nf">method_prime</span><span class="p">(</span><span class="n">VALUE</span> <span class="n">obj</span><span class="p">,</span> <span class="n">VALUE</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">register</span> <span class="kt">uint64_t</span> <span class="n">n</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">n</span> <span class="o">=</span> <span class="n">NUM2INT</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">Qtrue</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">((</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">Qfalse</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">register</span> <span class="kt">uint64_t</span> <span class="n">sqrt_n</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uint64_t</span><span class="p">)</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">register</span> <span class="kt">uint64_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span> <span class="n">sqrt_n</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">Qfalse</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">Qtrue</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">Init_primed</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">Primed</span> <span class="o">=</span> <span class="n">rb_define_module</span><span class="p">(</span><span class="s">&quot;Primed&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">rb_define_method</span><span class="p">(</span><span class="n">Primed</span><span class="p">,</span> <span class="s">&quot;prime?&quot;</span><span class="p">,</span> <span class="n">method_prime</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>extconf.rb</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Loads mkmf which is used to make makefiles for Ruby extensions</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mkmf&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Give it a name</span>
+</span><span class='line'><span class="n">extension_name</span> <span class="o">=</span> <span class="s1">&#39;primed&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># The destination</span>
+</span><span class='line'><span class="n">dir_config</span><span class="p">(</span><span class="n">extension_name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Do the work</span>
+</span><span class='line'><span class="n">create_makefile</span><span class="p">(</span><span class="n">extension_name</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First let me explain primed.c. The objective of this extension is to determine whether or not a number is prime, so that an integer can call <code>x.prime?</code> and return <code>true</code> or <code>false</code>. It is essentially identical to the method used in the pure ruby script above. One of the first thing you may notice is this line:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">VALUE</span> <span class="n">Primed</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>VALUE</code> is a data type defined by Ruby that represents the Ruby object in memory. It is basically a struct that contains the data related to the object. In this case, the object will represent the <code>Primed</code> module in ruby, so it will contain data about the instance methods, variables, etc. for that module. All Ruby objects are represented in C by <code>VALUE</code>, regardless of their type within the Ruby VM, anything else will likely result in a segfault.</p>
+
+<p>Next we define the actual method to calculate whether the value is prime. Note that because we need to return a Ruby object, we set the return type as <code>VALUE</code> as well. <code>QTrue</code> and <code>QFalse</code> are directly representative of true and false in Ruby, and also return correctly within C (<code>QTrue</code> will evaluate as <code>true</code>, <code>QFalse</code> will evaluate as <code>false</code>).</p>
+
+<p>Finally we see the <code>Init_primed method</code>. Every time a class or module is instantiated within the Ruby VM it calles <code>Init_name</code>. It is here we actually instantiate the <code>Primed</code> module and bind the <code>method_prime</code> function to the Ruby method <code>prime?</code>. Both functions used are pretty self explanatory as to what they do, except for the last argument used in <code>ruby_define_method</code> which is essentially the arity or number of arguments to expect in the Ruby method. In this case, <code>-2</code> actually causes Ruby to send back <code>self</code> as the first argument to the <code>method_prime</code> function, and an array of any other arguments as the second.</p>
+
+<p>Now we have all of our code. The last thing to put in place is extconf.rb:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Loads mkmf which is used to make makefiles for Ruby extensions</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mkmf&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Give it a name</span>
+</span><span class='line'><span class="n">extension_name</span> <span class="o">=</span> <span class="s1">&#39;primed&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># The destination</span>
+</span><span class='line'><span class="n">dir_config</span><span class="p">(</span><span class="n">extension_name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Do the work</span>
+</span><span class='line'><span class="n">create_makefile</span><span class="p">(</span><span class="n">extension_name</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty simple right? Now when you call ruby extconf.rb it will generate a Makefile that you can use to build the extension. And the final result? Using the C extension the code runs in just under 3 seconds. Still not really efficient, but it demonstrates the point. When Ruby’s speed is the bottle neck, using C is a viable and easy option.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Wrong and Right of Rewrite]]></title>
