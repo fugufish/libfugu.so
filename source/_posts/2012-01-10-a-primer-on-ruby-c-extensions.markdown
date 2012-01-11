@@ -19,7 +19,7 @@ class Integer
     return true if self == 2
     return false if (self & 1) == 0
     square = Math.sqrt(self).round + 1
-    i = 1
+    i = 3
     while i <= square
       i+= 2
       return false if (self % i) == 0
@@ -34,6 +34,8 @@ numbers = (2..2000000).to_a
 numbers = numbers.select { |n| n.prime? }
 puts numbers.inject { |result, element| result = element + result }
 ```
+
+**UPDATE**: Changed `i` on line 7 from `1` to `3`, as otherwise it will cause `3` and `5` to return `false`.
 
 At the time that I wrote this, I was relatively unaware of more efficient ways of resolving prime numbers (such as a euler sieve), however the code still ran under the allotted 2 minute window (52 seconds) so I went with it. Now to speed it up. To write a C extension you need, at a bare minimum two things:
 

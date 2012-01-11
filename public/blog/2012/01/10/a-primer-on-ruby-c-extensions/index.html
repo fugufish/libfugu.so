@@ -116,7 +116,7 @@
 </span><span class='line'>    <span class="k">return</span> <span class="kp">true</span> <span class="k">if</span> <span class="nb">self</span> <span class="o">==</span> <span class="mi">2</span>
 </span><span class='line'>    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </span><span class='line'>    <span class="n">square</span> <span class="o">=</span> <span class="no">Math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span><span class="o">.</span><span class="n">round</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span>
 </span><span class='line'>    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">square</span>
 </span><span class='line'>      <span class="n">i</span><span class="o">+=</span> <span class="mi">2</span>
 </span><span class='line'>      <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -132,6 +132,8 @@
 </span><span class='line'><span class="nb">puts</span> <span class="n">numbers</span><span class="o">.</span><span class="n">inject</span> <span class="p">{</span> <span class="o">|</span><span class="n">result</span><span class="p">,</span> <span class="n">element</span><span class="o">|</span> <span class="n">result</span> <span class="o">=</span> <span class="n">element</span> <span class="o">+</span> <span class="n">result</span> <span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><strong>UPDATE</strong>: Changed <code>i</code> on line 7 from <code>1</code> to <code>3</code>, as otherwise it will cause <code>3</code> and <code>5</code> to return <code>false</code>.</p>
 
 <p>At the time that I wrote this, I was relatively unaware of more efficient ways of resolving prime numbers (such as a euler sieve), however the code still ran under the allotted 2 minute window (52 seconds) so I went with it. Now to speed it up. To write a C extension you need, at a bare minimum two things:</p>
 
