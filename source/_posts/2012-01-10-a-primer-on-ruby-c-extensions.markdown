@@ -3,7 +3,7 @@ layout: post
 title: "A Primer on Ruby C Extensions"
 date: 2012-01-10 14:23
 comments: true
-categories: ruby, c
+categories: ruby c
 ---
 
 **NOTE:** This is a repost of an older blog post of mine from another [Blog](http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/)

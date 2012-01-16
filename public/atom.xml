@@ -4,7 +4,7 @@
   <title><![CDATA[libfugu.so]]></title>
   <link href="http://libfugu.so/atom.xml" rel="self"/>
   <link href="http://libfugu.so/"/>
-  <updated>2012-01-11T10:15:06-07:00</updated>
+  <updated>2012-01-16T11:31:50-07:00</updated>
   <id>http://libfugu.so/</id>
   <author>
     <name><![CDATA[Fugufish]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A Primer on C Extensions Part 2 - FFI]]></title>
+    <link href="http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/"/>
+    <updated>2012-01-16T10:44:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi</id>
+    <content type="html"><![CDATA[<p>In <a href="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/">my previous post</a> I covered building a simple C extension written in Ruby. There are times however that you may need to call functions defined in an existing native library. Fortunately there is a tool precisely for this job. Enter FFI, or Foreign Function Interface. As defined by <a href="http://en.wikipedia.org/wiki/Foreign_function_interface">Wikipedia</a> <em>&#8220;A foreign function interface (or FFI) is a mechanism by which a program written in one programming language can call routines or make use of services written in another&#8221;</em>. Thanks to the team working on <a href="https://github.com/ffi/ffi">Ruby FFI</a> we have a relatively easy set of tools to work with.</p>
+
+<p>First let say I ther is already a native library available that has an already defined method for determining if a number is prime. Lets call this <em>libprime.so</em>. Tying into this library is actually quite simple using Ruby FFI. The first step obviously is installing it. <code>gem install ffi</code> should do the trick. Now we need to take a look at the code defined in <em>libprime.so</em>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdint.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;math.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">prime</span><span class="p">(</span><span class="k">register</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">((</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">register</span> <span class="kt">uint64_t</span> <span class="n">sqrt_n</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uint64_t</span><span class="p">)</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">register</span> <span class="kt">uint64_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span> <span class="n">sqrt_n</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see the method <code>prime</code> is made available. So our next step is to tie into the library using FFI.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;ffi&#39;</span>
+</span><span class='line'><span class="k">module</span> <span class="nn">Primed</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="no">FFI</span><span class="o">::</span><span class="no">Library</span>
+</span><span class='line'>  <span class="n">ffi_lib</span> <span class="s2">&quot;libprime.so&quot;</span>
+</span><span class='line'>  <span class="n">attach_function</span> <span class="ss">:prime</span><span class="p">,</span> <span class="o">[</span><span class="ss">:int</span><span class="o">]</span><span class="p">,</span> <span class="ss">:int</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">prime</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looks simple enough right? Let me quickly explain what this is doing. Our first task is obviously to make FFI available to us. We call <code>extend FFI::Library</code> and that gives us all the tools that we need to work with. Second, we need to define the library to tie into, in this case <em>libprime.so</em>. Third, we call <code>attach_function</code>. This takes 3 arguments, the name of the library&#8217;s method to call, an array of arguments that the method will take, and the data type the method returns. Finally, we wrap the method to our liking and we&#8217;re done. For more information check out the <a href="https://github.com/ffi/ffi/wiki">FFI Wiki</a> over at Github.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A Primer on Ruby C Extensions]]></title>
