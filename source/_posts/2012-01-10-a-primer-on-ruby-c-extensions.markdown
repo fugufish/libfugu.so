@@ -122,4 +122,4 @@ create_makefile(extension_name)
 
 Pretty simple right? Now when you call ruby extconf.rb it will generate a Makefile that you can use to build the extension. And the final result? Using the C extension the code runs in just under 3 seconds. Still not really efficient, but it demonstrates the point. When Ruby’s speed is the bottle neck, using C is a viable and easy option.
 
-[Go to Part 2 - FFI](/blog/2012/01/10/a-primer-on-ruby-c-extensions/)
+[Go to Part 2 - FFI](/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/)
