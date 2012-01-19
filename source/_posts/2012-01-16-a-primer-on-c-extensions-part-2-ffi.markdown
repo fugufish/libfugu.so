@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Primer on C Extensions Part 2 - FFI"
+title: "A Primer on Ruby C Extensions Part 2 - FFI"
 date: 2012-01-16 10:44
 comments: true
 categories: c ruby ffi
