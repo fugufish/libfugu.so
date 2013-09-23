@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Lua | libfugu.so]]></title>
+  <link href="http://libfugu.so/blog/categories/lua/atom.xml" rel="self"/>
+  <link href="http://libfugu.so/"/>
+  <updated>2013-09-23T11:18:09-06:00</updated>
+  <id>http://libfugu.so/</id>
+  <author>
+    <name><![CDATA[Fugufish]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Lightweight API Authentication With Lua and NGiNX]]></title>
+    <link href="http://libfugu.so/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/"/>
+    <updated>2011-10-26T10:18:00-06:00</updated>
+    <id>http://libfugu.so/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx</id>
+    <content type="html"><![CDATA[<p>I recently was looking for a way to easily handle API authentication with as little overhead as possible. So first a little background. At <a href="http://scan.me">Scan</a> we are following a service oriented structure, where each service defines and maintains its own API endpoints. The &ldquo;API&rdquo; is in fact nothing more than a glorified proxy, that sends back the request to the appropriate service which then handles the logic. This is all handled through NGiNX. More on the pros and cons of that structure in a future post. That being said, my goals were simple:</p>
+
+<blockquote><ul>
+<li>Little to no long term code maintinence. I want to be able to forget it is even there.</li>
+<li>Fast. After all, it is authenticating every API request.</li>
+<li>I wanted it to behave almost like a Ruby on Rails <em>before_filter</em> call. It should authenticate the key before the API endpoints are actually even hit.</li>
+</ul>
+</blockquote>
+
+<p>Enter the <a href="https://github.com/chaoslawful/lua-nginx-module">lua-nginx-module</a>. Lua is an extremely light weight fast scripting language made popular by its ability to be embedded in almost anything, <a href="https://github.com/glejeune/ruby-lua">even in other scripting languages</a>. In this case, the Lua runtime can be compiled directly into NGiNX. The lua-nginx-module conveniently adds an NGiNX configuration option called <a href="http://wiki.nginx.org/HttpLuaModule#access_by_lua">access_by_lua</a> which seems to fit all of the above requirements nicely:</p>
+
+<blockquote><ul>
+<li>Little or no maintinence &ndash; the entire authentication script run by NGiNX is a total of less than 70 lines of code (with comments and logging removed), and depending on requirements could be done in less.</li>
+<li>Fast &ndash; Lua is on average <a href="http://shootout.alioth.debian.org/u32/benchmark.php?test=all&amp;lang=yarv&amp;lang2=lua">five times faster than ruby</a>, and is embedded in the actual webserver. It also runs concurrently. Each NGiNX worker gets it&rsquo;s own Lua runtime.</li>
+<li>Prevents access before it hits the first endpoint &ndash; The access_by_lua acts in the same way as a simple basic authentication directive would. It will stop the call from ever continuing to the API endpoints if authentication fails.</li>
+</ul>
+</blockquote>
+
+<p>The best thing is that it is flexible. How the lua authenticates is entirely up to the developer. It can read from a file, call a back end service, or even read directly from a database. It is entirely up to you.</p>
+]]></content>
+  </entry>
+  
+</feed>

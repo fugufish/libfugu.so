@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ffi | libfugu.so]]></title>
+  <link href="http://libfugu.so/blog/categories/ffi/atom.xml" rel="self"/>
+  <link href="http://libfugu.so/"/>
+  <updated>2013-09-23T11:18:09-06:00</updated>
+  <id>http://libfugu.so/</id>
+  <author>
+    <name><![CDATA[Fugufish]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Primer on Ruby C Extensions Part 2 - FFI]]></title>
+    <link href="http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/"/>
+    <updated>2012-01-16T10:44:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi</id>
+    <content type="html"><![CDATA[<p>In <a href="/blog/2012/01/10/a-primer-on-ruby-c-extensions/">my previous post</a> I covered building a simple C extension written in Ruby. There are times however that you may need to call functions defined in an existing native library. Fortunately there is a tool precisely for this job. Enter FFI, or Foreign Function Interface. As defined by <a href="http://en.wikipedia.org/wiki/Foreign_function_interface">Wikipedia</a> <em>&ldquo;A foreign function interface (or FFI) is a mechanism by which a program written in one programming language can call routines or make use of services written in another&rdquo;</em>. Thanks to the team working on <a href="https://github.com/ffi/ffi">Ruby FFI</a> we have a relatively easy set of tools to work with.</p>
+
+<p>First let say I ther is already a native library available that has an already defined method for determining if a number is prime. Lets call this <em>libprime.so</em>. Tying into this library is actually quite simple using Ruby FFI. The first step obviously is installing it. <code>gem install ffi</code> should do the trick. Now we need to take a look at the code defined in <em>libprime.so</em>.</p>
+
+<p>```c</p>
+
+<h1>include &lt;stdlib.h></h1>
+
+<h1>include &lt;stdint.h></h1>
+
+<h1>include &lt;math.h></h1>
+
+<p>int prime(register int n)
+{</p>
+
+<p>  if (n == 2)</p>
+
+<pre><code>return 1;
+</code></pre>
+
+<p>  if ((n &amp; 1) == 0)</p>
+
+<pre><code>return 0;
+</code></pre>
+
+<p>  register uint64_t sqrt_n = ((uint64_t)sqrt(n)) + 1;
+  register uint64_t i=3;
+  for (i; i&lt;= sqrt_n; i+=2) {</p>
+
+<pre><code>if (n % i == 0)
+  return 0;
+</code></pre>
+
+<p>  }
+  return 1;
+}
+<code>``
+As you can see the method</code>prime` is made available. So our next step is to tie into the library using FFI.</p>
+
+<p>```ruby
+require &lsquo;rubygems&rsquo;
+require &lsquo;ffi&rsquo;
+module Primed
+  extend FFI::Library
+  ffi_lib &ldquo;libprime.so&rdquo;
+  attach_function :prime, [:int], :int</p>
+
+<p>  def prime?</p>
+
+<pre><code>return false if prime(self) == 0
+true
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>Looks simple enough right? Let me quickly explain what this is doing. Our first task is obviously to make FFI available to us. We call <code>extend FFI::Library</code> and that gives us all the tools that we need to work with. Second, we need to define the library to tie into, in this case <em>libprime.so</em>. Third, we call <code>attach_function</code>. This takes 3 arguments, the name of the library&rsquo;s method to call, an array of arguments that the method will take, and the data type the method returns. Finally, we wrap the method to our liking and we&rsquo;re done. For more information check out the <a href="https://github.com/ffi/ffi/wiki">FFI Wiki</a> over at Github.</p>
+]]></content>
+  </entry>
+  
+</feed>

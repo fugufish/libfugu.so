@@ -9,7 +9,7 @@
   <meta name="author" content="Fugufish">
 
   
-  <meta name="description" content="NOTE: This is a repost of an older blog post of mine from another BlogI will address one of the primary uses for a C extension in Ruby, speed. Due ...">
+  <meta name="description" content="NOTE: This is a repost of an older blog post of mine from another Blog I will address one of the primary uses for a C extension in Ruby, speed. Due &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,33 +18,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/">
+  <link rel="canonical" href="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="libfugu.so" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6239683-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 </head>
 
 <body   >
-  <header role="banner">
+  <header role="banner"><hgroup>
+</hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
+  
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:libfugu.so" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
+  
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
@@ -68,11 +86,13 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2012-01-10T14:23:00-07:00" pubdate  data-updated="true" >Jan 10<span>th</span>, 2012</time>
+<time datetime="2012-01-10T14:23:00-07:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
         
       </p>
     
@@ -266,7 +286,7 @@ Here is a look at these two files for my new version of problem 10:</p>
 
 <p>Pretty simple right? Now when you call ruby extconf.rb it will generate a Makefile that you can use to build the extension. And the final result? Using the C extension the code runs in just under 3 seconds. Still not really efficient, but it demonstrates the point. When Ruby’s speed is the bottle neck, using C is a viable and easy option.</p>
 
-<p><a href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/">Go to Part 2 - FFI</a></p>
+<p><a href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/">Go to Part 2 &ndash; FFI</a></p>
 </div>
 
 
@@ -283,11 +303,13 @@ Here is a look at these two files for my new version of problem 10:</p>
 
 
 
+
+
+
   
 
 
-
-<time datetime="2012-01-10T14:23:00-07:00" pubdate  data-updated="true" >Jan 10<span>th</span>, 2012</time>
+<time datetime="2012-01-10T14:23:00-07:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
       
 
 <span class="categories">
@@ -301,7 +323,7 @@ Here is a look at these two files for my new version of problem 10:</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -312,6 +334,14 @@ Here is a look at these two files for my new version of problem 10:</p>
 </div>
 
     
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/05/the-wrong-and-right-of-rewrite/" title="Previous Post: The Wrong and Right of Rewrite">&laquo; The Wrong and Right of Rewrite</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/" title="Next Post: A Primer on Ruby C Extensions Part 2 - FFI">A Primer on Ruby C Extensions Part 2 - FFI &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -349,15 +379,15 @@ Here is a look at these two files for my new version of problem 10:</p>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
   
-  <a href="https://github.com/fugufish">@fugufish</a> on Github
+  <a href="https://github.com/fugufish">@fugufish</a> on GitHub
   
   <script type="text/javascript">
-    $.domReady(function(){
+    $(document).ready(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -378,21 +408,6 @@ Here is a look at these two files for my new version of problem 10:</p>
 </section>
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("dasfugufish", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/dasfugufish" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @dasfugufish</a>
-  
-</section>
 
 
 
@@ -403,7 +418,7 @@ Here is a look at these two files for my new version of problem 10:</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Fugufish -
+  Copyright &copy; 2013 - Fugufish -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -411,7 +426,6 @@ Here is a look at these two files for my new version of problem 10:</p>
   
 
 <script type="text/javascript">
-    
       var disqus_shortname = 'libfuguso';
       
         
@@ -428,14 +442,16 @@ Here is a look at these two files for my new version of problem 10:</p>
 </script>
 
 
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 
 
   <script type="text/javascript">
@@ -453,22 +469,8 @@ Here is a look at these two files for my new version of problem 10:</p>
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6239683-5']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
 

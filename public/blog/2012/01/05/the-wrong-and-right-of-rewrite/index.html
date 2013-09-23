@@ -9,7 +9,7 @@
   <meta name="author" content="Fugufish">
 
   
-  <meta name="description" content="Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light...">
+  <meta name="description" content="Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,33 +18,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/">
+  <link rel="canonical" href="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="libfugu.so" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6239683-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 </head>
 
 <body   >
-  <header role="banner">
+  <header role="banner"><hgroup>
+</hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
+  
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:libfugu.so" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
+  
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
@@ -68,37 +86,39 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2012-01-05T11:18:00-07:00" pubdate  data-updated="true" >Jan 5<span>th</span>, 2012</time>
+<time datetime="2012-01-05T11:18:00-07:00" pubdate data-updated="true">Jan 5<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It&#8217;s too hard to understand. There&#8217;s no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It&#8217;s time to rewrite. Or is it?</p>
+<div class="entry-content"><p>Almost every developer has faced it. Staring down code with frustration building until something in side you just snaps. Suddenly you see the light. This code is crap. Useless. There is too much duplication. It&rsquo;s too hard to understand. There&rsquo;s no documentation and the guy who wrote went missing in a jungle Safari in the Congo. It&rsquo;s time to rewrite. Or is it?</p>
 
 <p>The rewrite is an easy trap to fall into. You have to ask yourself though, am I considering a rewrite for the right reasons. The answer lies in the ability for you to be honest with yourself. First, a rewrite is NEVER a snap decision. If it took you less than a few days to determine you need to rewrite then you are %99.99 likely to be doing it for the wrong reasons. Having recently found myself considering a rewrite, I decided to stop myself and think it through. Here is a small list of various reasons for a rewrite. Some good, some bad.</p>
 
 <h2>The Wrong Reasons (or the most commonly used excuses)</h2>
 
 <ul>
-<li>I hate PHP. Or whatever language it is you find a particular distaste for. If this is your reason, you have probably spoiled yourself (I&#8217;m talking to most Ruby developers, including myself). Changing languages should only be a factor if you already have legitimate reasons for doing a rewrite.</li>
-<li>I don&#8217;t want to learn the code. The actual typical excuse is that it was just &#8220;done wrong&#8221;. I think this is the most common excuse for a rewrite. Face it, working with other peoples code is a part of being a Software Engineer.</li>
+<li>I hate PHP. Or whatever language it is you find a particular distaste for. If this is your reason, you have probably spoiled yourself (I&rsquo;m talking to most Ruby developers, including myself). Changing languages should only be a factor if you already have legitimate reasons for doing a rewrite.</li>
+<li>I don&rsquo;t want to learn the code. The actual typical excuse is that it was just &ldquo;done wrong&rdquo;. I think this is the most common excuse for a rewrite. Face it, working with other peoples code is a part of being a Software Engineer.</li>
 <li>The person that wrote the original code sucks. This is often closely linked to the above. They suck because I cannot understand it.</li>
-<li>It&#8217;s not the way I would have done it. Well of course it isn&#8217;t. Code style is almost as unique to a Software Engineer as a fingerprint.</li>
+<li>It&rsquo;s not the way I would have done it. Well of course it isn&rsquo;t. Code style is almost as unique to a Software Engineer as a fingerprint.</li>
 </ul>
 
 
 <h2>The Right Reasons</h2>
 
 <ul>
-<li>Unusable in it&#8217;s current state. If the codebase is unusable a rewrite is justified. Keep in mind that unusable code doesn&#8217;t mean unreadable code, or code you don&#8217;t understand, or code you don&#8217;t want to debug.</li>
+<li>Unusable in it&rsquo;s current state. If the codebase is unusable a rewrite is justified. Keep in mind that unusable code doesn&rsquo;t mean unreadable code, or code you don&rsquo;t understand, or code you don&rsquo;t want to debug.</li>
 <li>NOBODY can read it. Okay, if it is that unreadable then it is likely that a rewrite is justified.</li>
-<li>The codebase cannot support the current requirements of the software, either due to language limitations or the software was created in a way that prevents th requirements being met. A good albeit controversial example is Twitter&#8217;s move from Ruby to Java.</li>
+<li>The codebase cannot support the current requirements of the software, either due to language limitations or the software was created in a way that prevents th requirements being met. A good albeit controversial example is Twitter&rsquo;s move from Ruby to Java.</li>
 </ul>
 
 </div>
@@ -117,16 +137,18 @@
 
 
 
+
+
+
   
 
 
-
-<time datetime="2012-01-05T11:18:00-07:00" pubdate  data-updated="true" >Jan 5<span>th</span>, 2012</time>
+<time datetime="2012-01-05T11:18:00-07:00" pubdate data-updated="true">Jan 5<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/engineering-/'>engineering,</a>, <a class='category' href='/blog/categories/management/'>management</a>, <a class='category' href='/blog/categories/project/'>project</a>, <a class='category' href='/blog/categories/software/'>software</a>
+    <a class='category' href='/blog/categories/engineering/'>engineering,</a>, <a class='category' href='/blog/categories/management/'>management</a>, <a class='category' href='/blog/categories/project/'>project</a>, <a class='category' href='/blog/categories/software/'>software</a>
   
 </span>
 
@@ -135,7 +157,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2012/01/05/the-wrong-and-right-of-rewrite/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -146,6 +168,14 @@
 </div>
 
     
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/" title="Previous Post: Lightweight API Authentication With Lua and NGiNX">&laquo; Lightweight API Authentication With Lua and NGiNX</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/10/a-primer-on-ruby-c-extensions/" title="Next Post: A Primer on Ruby C Extensions">A Primer on Ruby C Extensions &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -183,15 +213,15 @@
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
   
-  <a href="https://github.com/fugufish">@fugufish</a> on Github
+  <a href="https://github.com/fugufish">@fugufish</a> on GitHub
   
   <script type="text/javascript">
-    $.domReady(function(){
+    $(document).ready(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -212,21 +242,6 @@
 </section>
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("dasfugufish", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/dasfugufish" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @dasfugufish</a>
-  
-</section>
 
 
 
@@ -237,7 +252,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Fugufish -
+  Copyright &copy; 2013 - Fugufish -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -245,7 +260,6 @@
   
 
 <script type="text/javascript">
-    
       var disqus_shortname = 'libfuguso';
       
         
@@ -262,14 +276,16 @@
 </script>
 
 
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 
 
   <script type="text/javascript">
@@ -287,22 +303,8 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6239683-5']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
 

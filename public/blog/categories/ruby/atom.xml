@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | libfugu.so]]></title>
+  <link href="http://libfugu.so/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://libfugu.so/"/>
+  <updated>2013-09-23T11:18:09-06:00</updated>
+  <id>http://libfugu.so/</id>
+  <author>
+    <name><![CDATA[Fugufish]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Primer on Ruby C Extensions Part 2 - FFI]]></title>
+    <link href="http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/"/>
+    <updated>2012-01-16T10:44:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi</id>
+    <content type="html"><![CDATA[<p>In <a href="/blog/2012/01/10/a-primer-on-ruby-c-extensions/">my previous post</a> I covered building a simple C extension written in Ruby. There are times however that you may need to call functions defined in an existing native library. Fortunately there is a tool precisely for this job. Enter FFI, or Foreign Function Interface. As defined by <a href="http://en.wikipedia.org/wiki/Foreign_function_interface">Wikipedia</a> <em>&ldquo;A foreign function interface (or FFI) is a mechanism by which a program written in one programming language can call routines or make use of services written in another&rdquo;</em>. Thanks to the team working on <a href="https://github.com/ffi/ffi">Ruby FFI</a> we have a relatively easy set of tools to work with.</p>
+
+<p>First let say I ther is already a native library available that has an already defined method for determining if a number is prime. Lets call this <em>libprime.so</em>. Tying into this library is actually quite simple using Ruby FFI. The first step obviously is installing it. <code>gem install ffi</code> should do the trick. Now we need to take a look at the code defined in <em>libprime.so</em>.</p>
+
+<p>```c</p>
+
+<h1>include &lt;stdlib.h></h1>
+
+<h1>include &lt;stdint.h></h1>
+
+<h1>include &lt;math.h></h1>
+
+<p>int prime(register int n)
+{</p>
+
+<p>  if (n == 2)</p>
+
+<pre><code>return 1;
+</code></pre>
+
+<p>  if ((n &amp; 1) == 0)</p>
+
+<pre><code>return 0;
+</code></pre>
+
+<p>  register uint64_t sqrt_n = ((uint64_t)sqrt(n)) + 1;
+  register uint64_t i=3;
+  for (i; i&lt;= sqrt_n; i+=2) {</p>
+
+<pre><code>if (n % i == 0)
+  return 0;
+</code></pre>
+
+<p>  }
+  return 1;
+}
+<code>``
+As you can see the method</code>prime` is made available. So our next step is to tie into the library using FFI.</p>
+
+<p>```ruby
+require &lsquo;rubygems&rsquo;
+require &lsquo;ffi&rsquo;
+module Primed
+  extend FFI::Library
+  ffi_lib &ldquo;libprime.so&rdquo;
+  attach_function :prime, [:int], :int</p>
+
+<p>  def prime?</p>
+
+<pre><code>return false if prime(self) == 0
+true
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>Looks simple enough right? Let me quickly explain what this is doing. Our first task is obviously to make FFI available to us. We call <code>extend FFI::Library</code> and that gives us all the tools that we need to work with. Second, we need to define the library to tie into, in this case <em>libprime.so</em>. Third, we call <code>attach_function</code>. This takes 3 arguments, the name of the library&rsquo;s method to call, an array of arguments that the method will take, and the data type the method returns. Finally, we wrap the method to our liking and we&rsquo;re done. For more information check out the <a href="https://github.com/ffi/ffi/wiki">FFI Wiki</a> over at Github.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Primer on Ruby C Extensions]]></title>
+    <link href="http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions/"/>
+    <updated>2012-01-10T14:23:00-07:00</updated>
+    <id>http://libfugu.so/blog/2012/01/10/a-primer-on-ruby-c-extensions</id>
+    <content type="html"><![CDATA[<p><strong>NOTE:</strong> This is a repost of an older blog post of mine from another <a href="http://www.pmamediagroup.com/2010/07/making-superfast-things-in-ruby-using-c-extensions/">Blog</a></p>
+
+<p>I will address one of the primary uses for a C extension in Ruby, speed. Due to it’s very nature, Ruby is slow (as compared to compiled languages like C). It gets the job done, but sometimes it takes it’s sweet time doing it. Sometimes it is necessary to speed things up a bit, and here enter C extensions. There are several methods of implementing extensions, from the generic C extension, to ruby-inline. In this particular article I will focus on the generic C extension.</p>
+
+<p>In this example, I am going to use a fairly inefficient piece of Ruby code I created a while ago for Project Euler (Problem 10) for finding the sum of all primes under 2000000:</p>
+
+<p>```ruby
+class Integer</p>
+
+<p>  def prime?</p>
+
+<pre><code>return true if self == 2
+return false if (self &amp; 1) == 0
+square = Math.sqrt(self).round + 1
+i = 3
+while i &lt;= square
+  i+= 2
+  return false if (self % i) == 0
+end
+true
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>numbers = (2..2000000).to_a</p>
+
+<p>numbers = numbers.select { |n| n.prime? }
+puts numbers.inject { |result, element| result = element + result }
+```</p>
+
+<p><strong>UPDATE</strong>: Changed <code>i</code> on line 7 from <code>1</code> to <code>3</code>, as otherwise it will cause <code>3</code> and <code>5</code> to return <code>false</code>.</p>
+
+<p>At the time that I wrote this, I was relatively unaware of more efficient ways of resolving prime numbers (such as a euler sieve), however the code still ran under the allotted 2 minute window (52 seconds) so I went with it. Now to speed it up. To write a C extension you need, at a bare minimum two things:</p>
+
+<p>an extconf.rb file – this file is used by ruby to generate the Makefile that is used to compile the extension
+the source file for the extension (in this case primed.c)
+Here is a look at these two files for my new version of problem 10:</p>
+
+<p><em>primed.c</em></p>
+
+<p>```c</p>
+
+<h1>include &ldquo;ruby.h&rdquo;</h1>
+
+<h1>include &lt;stdlib.h></h1>
+
+<h1>include &lt;math.h></h1>
+
+<p>VALUE Primed;</p>
+
+<p>VALUE method_prime(VALUE obj, VALUE args)
+{
+  register uint64_t n;
+  n = NUM2INT(obj);
+  if (n == 2)</p>
+
+<pre><code>return Qtrue;
+</code></pre>
+
+<p>  if ((n &amp; 1) == 0)</p>
+
+<pre><code>return Qfalse;
+</code></pre>
+
+<p>  register uint64_t sqrt_n = ((uint64_t)sqrt(n)) + 1;
+  register uint64_t i=3;
+  for (i; i&lt;= sqrt_n; i+=2) {</p>
+
+<pre><code>if (n % i == 0)
+  return Qfalse;
+</code></pre>
+
+<p>  }
+  return Qtrue;
+}</p>
+
+<p>void Init_primed() {
+  Primed = rb_define_module(&ldquo;Primed&rdquo;);
+  rb_define_method(Primed, &ldquo;prime?&rdquo;, method_prime, -2);
+}
+```</p>
+
+<p><em>extconf.rb</em></p>
+
+<p>```ruby</p>
+
+<h1>Loads mkmf which is used to make makefiles for Ruby extensions</h1>
+
+<p>require &lsquo;mkmf&rsquo;</p>
+
+<h1>Give it a name</h1>
+
+<p>extension_name = &lsquo;primed&rsquo;</p>
+
+<h1>The destination</h1>
+
+<p>dir_config(extension_name)</p>
+
+<h1>Do the work</h1>
+
+<p>create_makefile(extension_name)
+```</p>
+
+<p>First let me explain primed.c. The objective of this extension is to determine whether or not a number is prime, so that an integer can call <code>x.prime?</code> and return <code>true</code> or <code>false</code>. It is essentially identical to the method used in the pure ruby script above. One of the first thing you may notice is this line:</p>
+
+<p><code>c
+VALUE Primed
+</code></p>
+
+<p><code>VALUE</code> is a data type defined by Ruby that represents the Ruby object in memory. It is basically a struct that contains the data related to the object. In this case, the object will represent the <code>Primed</code> module in ruby, so it will contain data about the instance methods, variables, etc. for that module. All Ruby objects are represented in C by <code>VALUE</code>, regardless of their type within the Ruby VM, anything else will likely result in a segfault.</p>
+
+<p>Next we define the actual method to calculate whether the value is prime. Note that because we need to return a Ruby object, we set the return type as <code>VALUE</code> as well. <code>QTrue</code> and <code>QFalse</code> are directly representative of true and false in Ruby, and also return correctly within C (<code>QTrue</code> will evaluate as <code>true</code>, <code>QFalse</code> will evaluate as <code>false</code>).</p>
+
+<p>Finally we see the <code>Init_primed method</code>. Every time a class or module is instantiated within the Ruby VM it calles <code>Init_name</code>. It is here we actually instantiate the <code>Primed</code> module and bind the <code>method_prime</code> function to the Ruby method <code>prime?</code>. Both functions used are pretty self explanatory as to what they do, except for the last argument used in <code>ruby_define_method</code> which is essentially the arity or number of arguments to expect in the Ruby method. In this case, <code>-2</code> actually causes Ruby to send back <code>self</code> as the first argument to the <code>method_prime</code> function, and an array of any other arguments as the second.</p>
+
+<p>Now we have all of our code. The last thing to put in place is extconf.rb:</p>
+
+<p>```ruby</p>
+
+<h1>Loads mkmf which is used to make makefiles for Ruby extensions</h1>
+
+<p>require &lsquo;mkmf&rsquo;</p>
+
+<h1>Give it a name</h1>
+
+<p>extension_name = &lsquo;primed&rsquo;</p>
+
+<h1>The destination</h1>
+
+<p>dir_config(extension_name)</p>
+
+<h1>Do the work</h1>
+
+<p>create_makefile(extension_name)
+```</p>
+
+<p>Pretty simple right? Now when you call ruby extconf.rb it will generate a Makefile that you can use to build the extension. And the final result? Using the C extension the code runs in just under 3 seconds. Still not really efficient, but it demonstrates the point. When Ruby’s speed is the bottle neck, using C is a viable and easy option.</p>
+
+<p><a href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/">Go to Part 2 &ndash; FFI</a></p>
+]]></content>
+  </entry>
+  
+</feed>
