@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a454f3d1-67ad-4968-b73f-70318a212fcf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/atom.xml" afterPath="$PROJECT_DIR$/public/atom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/c/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/c/atom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/engineering/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/engineering/atom.xml" />
@@ -13,6 +13,16 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/project/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/project/atom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ruby/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/ruby/atom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/software/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/software/atom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/c/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/c/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/engineering/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/engineering/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ffi/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/ffi/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/lua/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/lua/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/management/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/management/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/nginx/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/nginx/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/project/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/project/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ruby/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/ruby/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/software/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/software/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="libfugu.so.iws" />
@@ -27,7 +37,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/libfugu.so@install_theme___libfugu_so.coverage" NAME="install[theme]: libfugu.so Coverage Results" MODIFIED="1379954992296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/libfugu.so@new_post_title___libfugu_so.coverage" NAME="new_post[title]: libfugu.so Coverage Results" MODIFIED="1380026644711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/libfugu.so@generate__libfugu_so.coverage" NAME="generate: libfugu.so Coverage Results" MODIFIED="1380041815539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/libfugu.so@generate__libfugu_so.coverage" NAME="generate: libfugu.so Coverage Results" MODIFIED="1380043668229" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/libfugu.so@preview__libfugu_so.coverage" NAME="preview: libfugu.so Coverage Results" MODIFIED="1380032759797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -60,13 +70,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2013-09-24-rabbitmq-a-quick-and-dirty-introduction.markdown" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="2013-09-24-rabbitmq-a-quick-and-dirty-introduction.markdown" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/_posts/2013-09-24-rabbitmq-a-quick-and-dirty-introduction.markdown">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="116" selection-start="3250" selection-end="3250" vertical-scroll-proportion="0.9893993" vertical-offset="135" max-vertical-offset="1785">
+            <state line="65" column="116" selection-start="3250" selection-end="3250" vertical-scroll-proportion="-31.11111" vertical-offset="135" max-vertical-offset="1785">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_config.yml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_config.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="0" selection-start="2275" selection-end="2372" vertical-scroll-proportion="0.22768879" vertical-offset="761" max-vertical-offset="1635">
               <folding />
             </state>
           </provider>
@@ -91,15 +110,6 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1950">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_colors.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sass/custom/_colors.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
               <folding />
             </state>
           </provider>
@@ -167,6 +177,7 @@
         <option value="$PROJECT_DIR$/source/_includes/custom/header.html" />
         <option value="$PROJECT_DIR$/sass/custom/_styles.scss" />
         <option value="$PROJECT_DIR$/source/_posts/2013-09-24-rabbitmq-a-quick-and-dirty-introduction.markdown" />
+        <option value="$PROJECT_DIR$/_config.yml" />
       </list>
     </option>
   </component>
@@ -560,29 +571,37 @@
       <created>1380036445673</created>
       <updated>1380036445673</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="forgot index">
+      <created>1380041858745</created>
+      <updated>1380041858745</updated>
+    </task>
+    <task id="LOCAL-00004" summary="remove github reference for now">
+      <created>1380041906244</created>
+      <updated>1380041906244</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1414" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13683373" sideWeight="0.6706231" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13683373" sideWeight="0.6701337" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32937685" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -596,17 +615,14 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="rabbitmq post" />
-    <option name="LAST_COMMIT_MESSAGE" value="rabbitmq post" />
+    <MESSAGE value="forgot index" />
+    <MESSAGE value="remove github reference for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove github reference for now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/_includes/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="874" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/_includes/custom/navigation.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="874" />
@@ -709,7 +725,14 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="116" selection-start="3250" selection-end="3250" vertical-scroll-proportion="0.9893993" vertical-offset="135" max-vertical-offset="1785">
+        <state line="65" column="116" selection-start="3250" selection-end="3250" vertical-scroll-proportion="-31.11111" vertical-offset="135" max-vertical-offset="1785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="2275" selection-end="2372" vertical-scroll-proportion="0.22768879" vertical-offset="761" max-vertical-offset="1635">
           <folding />
         </state>
       </provider>
