@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>RabbitMQ a Quick and Dirty Introduction - libfugu.so</title>
+  <meta name="author" content="Fugufish">
+
+  
+  <meta name="description" content="RabbitMQ has become one of the most popular solutions for application messaging. Owned and maintained by VMWare, its
+proven track record, stability, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="libfugu.so" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6239683-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:libfugu.so" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RabbitMQ a Quick and Dirty Introduction</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-24T06:44:00-06:00" pubdate data-updated="true">Sep 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>RabbitMQ has become one of the most popular solutions for application messaging. Owned and maintained by VMWare, its
+proven track record, stability, and speed has made it the poster child of what a powerful message bus should be. This
+introduction should be viewed as a boiled down crash course in RabbitMQ.</p>
+
+<h2>The Quick</h2>
+
+<h3>AMQP</h3>
+
+<p>RabbitMQ is a broker for the AMQP (Advanced Message Queuing Protocol) v0.9.1. On the face of it, the AMQP protocol is
+pretty simple. If you are used to working with email, the concepts in AMQP will be nothing new. It can be viewed as a
+series of mail boxes, mail exchanges, and addresses working together to get the job done. My purpose is not to
+go into great detail about AMQP itself or its history, I will leave that to your own research or perhaps a later post.
+Rather this post is intended to give the developer enough information that they can navigate their way around or at
+least have a fairly good understanding of how it all works together to get the job done.</p>
+
+<h3>RabbitMQ</h3>
+
+<p>RabbitMQ is the goto broker for AMQP messaging. With the financial backbone of EMC and VMWare under the guise of
+GoPivotal, this will probably be the case for many years to come. It is written in Erlang, a functional language
+known for its ability for concurrent processing, and backed by Mnesia, Erlang&rsquo;s powerful persistence database.</p>
+
+<p>Currently RabbitMQ is used by some of the biggest names in the tech world including:</p>
+
+<ul>
+<li>VMWare/EMC (obviously)</li>
+<li>AT&amp;T Interactive</li>
+<li>NASA</li>
+<li>Digg</li>
+<li>BBC</li>
+<li>Nokia</li>
+<li>Heroku</li>
+</ul>
+
+
+<h2>The Dirty</h2>
+
+<h3>Channels</h3>
+
+<p>When working with RabbitMQ (or AMQP for that matter) one of the first things you will run into is the Channel. A
+channel is essentially a virtual connection allowing separate threads to maintain their own point of communication while
+still using a single TCP connection.</p>
+
+<h3>Exchanges</h3>
+
+<p>The Exchange can be viewed as the backbone of the AMQP protocol. It acts much as an individual mail server determining
+which mailboxes (queues) to deliver messages to. These come in several different flavors covering almost all of your
+delivery needs:</p>
+
+<ul>
+<li><strong>Direct</strong> &ndash; The most commonly used exchange type. Direct exchanges are designed for fast and, you guessed it, direct
+delivery to queues using a <em>key</em>, or effectively the Queue&rsquo;s address on that exchange.</li>
+<li><strong>Topic</strong> &ndash; The Topic Exchange is similar to the direct exchange with the exception that queues bound to this exchange
+can listen to variable keys. For example, in a direct exchange if you wanted a queue to listen every message coming
+into <em>&lsquo;foo.bar.*&rsquo;( you would have to bind that queue for every possible key. A topic exchange instead allows wildcard
+subscriptions, so you can literally bind to &lsquo;foo.bar.</em>&rsquo; and it will consume everything from <em>&lsquo;foo.bar.baz&rsquo;</em> to
+<em>&lsquo;foo.bar.why.does.everyone.use.foo.bar&rsquo;</em>.</li>
+<li><strong>Fanout</strong> &ndash; In the Fanout Exchange, the message keys are completely ignored. Instead this exchange delivers to every
+queue bound to it.</li>
+<li><strong>Headers</strong> &ndash; This is possibly the least used, but most powerful type of Exchange. Instead of using the message key
+it actually looks at the message headers to determine where it is routed to.</li>
+</ul>
+
+
+<h3>Queues</h3>
+
+<p>The proverbial mailbox. Queues are pretty self descriptive. The only things fo real note are the options. When queues
+are declared they can be passed a number of attributes that determine how the queue behaves:</p>
+
+<ul>
+<li><strong>Durable</strong> &ndash; Messages in a durable queue will survive restart.</li>
+<li><strong>Exclusive</strong> &ndash; The queue is dedicated to a single connection. When that connection is lost, the queue will be
+removed.</li>
+<li><strong>AutoDelete</strong> &ndash; Similar to Exclusive queues, AutoDelete will cause the queue to be deleted when the last subscriber
+disappears. Unlike Exclusive queues, this allows multiple subscribers.</li>
+</ul>
+
+
+<h3>Bindings</h3>
+
+<p>Bindings are the glue that holds queue to exchange. When a queue is declared it can be bound to multiple exchanges,
+each binding defining its own rules of how messages are to be delivered to the queue. For example, you may bind a
+single queue to a Topic exchange with key <em>&lsquo;foo.bar.*&rsquo;</em> and to a Fanout Exchange. The queue will receive messages
+directed to it on the Topic Exchange and all messages from the Fanout Exchange both.</p>
+
+<h3>Consumers</h3>
+
+<p>While not technically part of the broker, consumers still bare mentioning. The most useful point here is that consumers
+can subscribe to messages transactionally. This allows the subscriber to either acknowledge or reject a message based
+on whether or not it was able to process it. Combine this with RabbitMQ&rsquo;s <em>Dead Lettering</em> capabilities and you have
+the makings of a extraordinarily fault tolerant messaging system.</p>
+
+<h2>Differences Between RabbitMQ and other AMQP Brokers</h2>
+
+<p>While most of the above details the more the AMQP protocol in general, I would be remiss if I didn&rsquo;t point out some
+slight differences RabbitMQ has with the AMQP 0.9.1 protocol proper.</p>
+
+<p>RabbitMQ comes with a number of protocol extensions giving the developer a bit more power than they would have
+otherwise:</p>
+
+<ul>
+<li><strong>Confirms</strong> The ability for the <strong>publisher</strong> to confirm message delivery.</li>
+<li><strong>Exchange to Exchange Bindings</strong> RabbitMQ provides the ability to bind exchanges to each other.</li>
+<li><strong>Message TTL</strong> &ndash; RabbitMQ implements a TTL header that defines how long a message is allowed to live in a queue.
+When this time expires, it is removed from the queue.</li>
+<li><strong>Dead Lettering</strong> &ndash; This is, in my opinion one of the best extensions RabbitMQ provides. In the case that a message
+is considered <em>dead</em>, you can define an exchange to transfer that message to for handling. Using this in combination
+with Message TTL, one can implement a timed retry of messages or even an automatic consumer delay.</li>
+</ul>
+
+
+<p>For those of you who have only passively heard about RabbitMQ, hopefully you find this post useful. My goal is to later
+go into more details about implementing and using Rabbit&rsquo;s various features, so stay tuned.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fugufish</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-24T06:44:00-06:00" pubdate data-updated="true">Sep 24<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/amqp/'>amqp</a>, <a class='category' href='/blog/categories/erlang/'>erlang</a>, <a class='category' href='/blog/categories/rabbitmq/'>rabbitmq</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/" data-via="dasfugufish" data-counturl="http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/" title="Previous Post: A Primer on Ruby C Extensions Part 2 - FFI">&laquo; A Primer on Ruby C Extensions Part 2 - FFI</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/">RabbitMQ a Quick and Dirty Introduction</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/">A Primer on Ruby C Extensions Part 2 - FFI</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/10/a-primer-on-ruby-c-extensions/">A Primer on Ruby C Extensions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/the-wrong-and-right-of-rewrite/">The Wrong and Right of Rewrite</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/">Lightweight API Authentication With Lua and NGiNX</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/fugufish">@fugufish</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'fugufish',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Fugufish -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'libfuguso';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/';
+        var disqus_url = 'http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
