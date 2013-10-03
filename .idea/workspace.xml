@@ -2,27 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a454f3d1-67ad-4968-b73f-70318a212fcf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/atom.xml" afterPath="$PROJECT_DIR$/public/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/c/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/c/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/engineering/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/engineering/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ffi/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/ffi/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/lua/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/lua/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/management/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/management/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/nginx/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/nginx/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/project/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/project/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ruby/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/ruby/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/software/atom.xml" afterPath="$PROJECT_DIR$/public/blog/categories/software/atom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/c/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/c/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/engineering/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/engineering/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ffi/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/ffi/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/lua/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/lua/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/management/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/management/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/nginx/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/nginx/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/project/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/project/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/ruby/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/ruby/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/categories/software/index.html" afterPath="$PROJECT_DIR$/public/blog/categories/software/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/index.html" afterPath="$PROJECT_DIR$/public/blog/2011/10/26/lightweight-api-authentication-with-lua-and-nginx/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/2012/01/05/the-wrong-and-right-of-rewrite/index.html" afterPath="$PROJECT_DIR$/public/blog/2012/01/05/the-wrong-and-right-of-rewrite/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/2012/01/10/a-primer-on-ruby-c-extensions/index.html" afterPath="$PROJECT_DIR$/public/blog/2012/01/10/a-primer-on-ruby-c-extensions/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/index.html" afterPath="$PROJECT_DIR$/public/blog/2012/01/16/a-primer-on-c-extensions-part-2-ffi/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/index.html" afterPath="$PROJECT_DIR$/public/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/blog/archives/index.html" afterPath="$PROJECT_DIR$/public/blog/archives/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="libfugu.so.iws" />
@@ -579,12 +564,16 @@
       <created>1380041906244</created>
       <updated>1380041906244</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add github cause I broke it">
+      <created>1380043681942</created>
+      <updated>1380043681942</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1414" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -596,7 +585,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -617,7 +606,8 @@
     <MESSAGE value="rabbitmq post" />
     <MESSAGE value="forgot index" />
     <MESSAGE value="remove github reference for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove github reference for now" />
+    <MESSAGE value="add github cause I broke it" />
+    <option name="LAST_COMMIT_MESSAGE" value="add github cause I broke it" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

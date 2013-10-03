@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: amqp | libfugu.so]]></title>
+  <link href="http://libfugu.so/blog/categories/amqp/atom.xml" rel="self"/>
+  <link href="http://libfugu.so/"/>
+  <updated>2013-09-24T11:27:51-06:00</updated>
+  <id>http://libfugu.so/</id>
+  <author>
+    <name><![CDATA[Fugufish]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RabbitMQ a Quick and Dirty Introduction]]></title>
+    <link href="http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/"/>
+    <updated>2013-09-24T06:44:00-06:00</updated>
+    <id>http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction</id>
+    <content type="html"><![CDATA[<p>RabbitMQ has become one of the most popular solutions for application messaging. Owned and maintained by VMWare, its
+proven track record, stability, and speed has made it the poster child of what a powerful message bus should be. This
+introduction should be viewed as a boiled down crash course in RabbitMQ.</p>
+
+<h2>The Quick</h2>
+
+<h3>AMQP</h3>
+
+<p>RabbitMQ is a broker for the AMQP (Advanced Message Queuing Protocol) v0.9.1. On the face of it, the AMQP protocol is
+pretty simple. If you are used to working with email, the concepts in AMQP will be nothing new. It can be viewed as a
+series of mail boxes, mail exchanges, and addresses working together to get the job done. My purpose is not to
+go into great detail about AMQP itself or its history, I will leave that to your own research or perhaps a later post.
+Rather this post is intended to give the developer enough information that they can navigate their way around or at
+least have a fairly good understanding of how it all works together to get the job done.</p>
+
+<h3>RabbitMQ</h3>
+
+<p>RabbitMQ is the goto broker for AMQP messaging. With the financial backbone of EMC and VMWare under the guise of
+GoPivotal, this will probably be the case for many years to come. It is written in Erlang, a functional language
+known for its ability for concurrent processing, and backed by Mnesia, Erlang&rsquo;s powerful persistence database.</p>
+
+<p>Currently RabbitMQ is used by some of the biggest names in the tech world including:</p>
+
+<ul>
+<li>VMWare/EMC (obviously)</li>
+<li>AT&amp;T Interactive</li>
+<li>NASA</li>
+<li>Digg</li>
+<li>BBC</li>
+<li>Nokia</li>
+<li>Heroku</li>
+</ul>
+
+
+<h2>The Dirty</h2>
+
+<h3>Channels</h3>
+
+<p>When working with RabbitMQ (or AMQP for that matter) one of the first things you will run into is the Channel. A
+channel is essentially a virtual connection allowing separate threads to maintain their own point of communication while
+still using a single TCP connection.</p>
+
+<h3>Exchanges</h3>
+
+<p>The Exchange can be viewed as the backbone of the AMQP protocol. It acts much as an individual mail server determining
+which mailboxes (queues) to deliver messages to. These come in several different flavors covering almost all of your
+delivery needs:</p>
+
+<ul>
+<li><strong>Direct</strong> &ndash; The most commonly used exchange type. Direct exchanges are designed for fast and, you guessed it, direct
+delivery to queues using a <em>key</em>, or effectively the Queue&rsquo;s address on that exchange.</li>
+<li><strong>Topic</strong> &ndash; The Topic Exchange is similar to the direct exchange with the exception that queues bound to this exchange
+can listen to variable keys. For example, in a direct exchange if you wanted a queue to listen every message coming
+into <em>&lsquo;foo.bar.*&rsquo;( you would have to bind that queue for every possible key. A topic exchange instead allows wildcard
+subscriptions, so you can literally bind to &lsquo;foo.bar.</em>&rsquo; and it will consume everything from <em>&lsquo;foo.bar.baz&rsquo;</em> to
+<em>&lsquo;foo.bar.why.does.everyone.use.foo.bar&rsquo;</em>.</li>
+<li><strong>Fanout</strong> &ndash; In the Fanout Exchange, the message keys are completely ignored. Instead this exchange delivers to every
+queue bound to it.</li>
+<li><strong>Headers</strong> &ndash; This is possibly the least used, but most powerful type of Exchange. Instead of using the message key
+it actually looks at the message headers to determine where it is routed to.</li>
+</ul>
+
+
+<h3>Queues</h3>
+
+<p>The proverbial mailbox. Queues are pretty self descriptive. The only things fo real note are the options. When queues
+are declared they can be passed a number of attributes that determine how the queue behaves:</p>
+
+<ul>
+<li><strong>Durable</strong> &ndash; Messages in a durable queue will survive restart.</li>
+<li><strong>Exclusive</strong> &ndash; The queue is dedicated to a single connection. When that connection is lost, the queue will be
+removed.</li>
+<li><strong>AutoDelete</strong> &ndash; Similar to Exclusive queues, AutoDelete will cause the queue to be deleted when the last subscriber
+disappears. Unlike Exclusive queues, this allows multiple subscribers.</li>
+</ul>
+
+
+<h3>Bindings</h3>
+
+<p>Bindings are the glue that holds queue to exchange. When a queue is declared it can be bound to multiple exchanges,
+each binding defining its own rules of how messages are to be delivered to the queue. For example, you may bind a
+single queue to a Topic exchange with key <em>&lsquo;foo.bar.*&rsquo;</em> and to a Fanout Exchange. The queue will receive messages
+directed to it on the Topic Exchange and all messages from the Fanout Exchange both.</p>
+
+<h3>Consumers</h3>
+
+<p>While not technically part of the broker, consumers still bare mentioning. The most useful point here is that consumers
+can subscribe to messages transactionally. This allows the subscriber to either acknowledge or reject a message based
+on whether or not it was able to process it. Combine this with RabbitMQ&rsquo;s <em>Dead Lettering</em> capabilities and you have
+the makings of a extraordinarily fault tolerant messaging system.</p>
+
+<h2>Differences Between RabbitMQ and other AMQP Brokers</h2>
+
+<p>While most of the above details the more the AMQP protocol in general, I would be remiss if I didn&rsquo;t point out some
+slight differences RabbitMQ has with the AMQP 0.9.1 protocol proper.</p>
+
+<p>RabbitMQ comes with a number of protocol extensions giving the developer a bit more power than they would have
+otherwise:</p>
+
+<ul>
+<li><strong>Confirms</strong> The ability for the <strong>publisher</strong> to confirm message delivery.</li>
+<li><strong>Exchange to Exchange Bindings</strong> RabbitMQ provides the ability to bind exchanges to each other.</li>
+<li><strong>Message TTL</strong> &ndash; RabbitMQ implements a TTL header that defines how long a message is allowed to live in a queue.
+When this time expires, it is removed from the queue.</li>
+<li><strong>Dead Lettering</strong> &ndash; This is, in my opinion one of the best extensions RabbitMQ provides. In the case that a message
+is considered <em>dead</em>, you can define an exchange to transfer that message to for handling. Using this in combination
+with Message TTL, one can implement a timed retry of messages or even an automatic consumer delay.</li>
+</ul>
+
+
+<p>For those of you who have only passively heard about RabbitMQ, hopefully you find this post useful. My goal is to later
+go into more details about implementing and using Rabbit&rsquo;s various features, so stay tuned.</p>
+]]></content>
+  </entry>
+  
+</feed>
